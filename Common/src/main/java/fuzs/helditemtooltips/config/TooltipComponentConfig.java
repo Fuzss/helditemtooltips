@@ -4,7 +4,6 @@ import fuzs.puzzleslib.config.ConfigCore;
 import fuzs.puzzleslib.config.annotation.Config;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Style;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TooltipComponentConfig implements ConfigCore {
@@ -19,33 +18,33 @@ public class TooltipComponentConfig implements ConfigCore {
     @Config(description = "Should this tooltip component be hidden when vanilla's respective \"HideFlags\" property is set.")
     public boolean respectHideFlags = true;
     @Config(description = "Text formatting settings for this component's text appearance.")
-    final FormattingConfig formatting;
+    private final FormattingConfig formatting;
 
     public static TooltipComponentConfig simple(boolean include, int ordering, int priority) {
         return simple(include, ordering, priority, null);
     }
 
     public static TooltipComponentConfig simple(boolean include, int ordering, int priority, @Nullable ChatFormatting textColor) {
-        return new TooltipComponentConfig(include, ordering, priority, false, new FormattingConfig(textColor));
+        return new TooltipComponentConfig(include, ordering, priority, false, textColor);
     }
 
-    public static TooltipComponentConfig advanced(boolean include, int ordering, int priority, @Nullable ChatFormatting textColor) {
-        return new TooltipComponentConfig(include, ordering, priority, true, new FormattingConfig(textColor));
+    public static TooltipComponentConfig advanced(boolean include, int ordering, int priority) {
+        return new TooltipComponentConfig(include, ordering, priority, true, null);
     }
 
-    public TooltipComponentConfig(boolean include, int ordering, int priority, boolean advancedTooltips, @NotNull FormattingConfig formatting) {
+    private TooltipComponentConfig(boolean include, int ordering, int priority, boolean advancedTooltips, @Nullable ChatFormatting textColor) {
         this.include = include;
         this.ordering = ordering;
         this.priority = priority;
         this.advancedTooltips = advancedTooltips;
-        this.formatting = formatting;
+        this.formatting = new FormattingConfig(textColor);
     }
 
     public Style getStyle() {
         return FormattingConfig.toStyle(this.formatting);
     }
 
-    static class FormattingConfig implements ConfigCore {
+    private static class FormattingConfig implements ConfigCore {
         private static final String DEFAULT_FORMATTING = "default";
 
         @Config(name = "text_color", description = "The color of this component's text.")
@@ -66,16 +65,7 @@ public class TooltipComponentConfig implements ConfigCore {
         public ChatFormatting textColor;
 
         public FormattingConfig(@Nullable ChatFormatting textColor) {
-            this(textColor, false, false, false, false, false);
-        }
-
-        public FormattingConfig(@Nullable ChatFormatting textColor, boolean obfuscated, boolean bold, boolean strikethrough, boolean underline, boolean italic) {
             this.textColorRaw = textColor == null ? DEFAULT_FORMATTING : textColor.getSerializedName();
-            this.obfuscated = obfuscated;
-            this.bold = bold;
-            this.strikethrough = strikethrough;
-            this.underline = underline;
-            this.italic = italic;
         }
 
         @Override

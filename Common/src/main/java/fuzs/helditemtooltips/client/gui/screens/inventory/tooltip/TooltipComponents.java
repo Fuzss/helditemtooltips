@@ -107,7 +107,7 @@ public final class TooltipComponents {
     };
     public static final UpdatingTooltipComponent DURABILITY = (lines, stack, player, tooltipFlag, style) -> {
         if (stack.isDamaged()) {
-            lines.add(Component.translatable("item.durability", stack.getMaxDamage() - stack.getDamageValue(), stack.getMaxDamage()).withStyle(style::applyTo));
+            lines.add(Component.translatable("item.durability", stack.getMaxDamage() - stack.getDamageValue(), stack.getMaxDamage()).withStyle(ChatFormatting.GRAY).withStyle(style::applyTo));
         }
     };
     public static final TooltipComponent IDENTIFIER = (lines, stack, player, tooltipFlag, style) -> {

@@ -47,7 +47,7 @@ public class HoverTextManager {
         maxLines = applyAdditionalInformation(lines, stack, maxLines);
 
         if (includeLastLine && maxLines < 0) {
-            lines.add(Component.translatable("container.shulkerBox.more", (-1) * maxLines).withStyle(ChatFormatting.ITALIC));
+            lines.add(Component.translatable("container.shulkerBox.more", (-1) * maxLines).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }
 
         return lines;
