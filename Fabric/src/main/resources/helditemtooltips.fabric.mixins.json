@@ -7,7 +7,7 @@
   "mixins": [
   ],
   "client": [
-    "client.accessor.GuiAccessor"
+    "client.GuiFabricMixin"
   ],
   "injectors": {
     "defaultRequire": 1

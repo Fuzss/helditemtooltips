@@ -21,15 +21,19 @@ import java.util.Locale;
 
 public final class TooltipComponents {
     public static final TooltipComponent ITEM_NAME = (lines, stack, player, tooltipFlag, style) -> {
-        MutableComponent mutablecomponent = Component.empty().append(stack.getHoverName()).withStyle(stack.getRarity().color);
+
+        MutableComponent component = Component.empty().append(stack.getHoverName()).withStyle(stack.getRarity().color);
         if (stack.hasCustomHoverName()) {
-            mutablecomponent.withStyle(ChatFormatting.ITALIC);
+            component.withStyle(ChatFormatting.ITALIC);
         }
 
-        lines.add(mutablecomponent.withStyle(style::applyTo));
+        lines.add(component.withStyle(style::applyTo));
+
         if (!tooltipFlag.isAdvanced() && !stack.hasCustomHoverName() && stack.is(Items.FILLED_MAP)) {
+
             Integer integer = MapItem.getMapId(stack);
             if (integer != null) {
+
                 lines.add(Component.literal("#" + integer).withStyle(ChatFormatting.GRAY).withStyle(style::applyTo));
             }
         }

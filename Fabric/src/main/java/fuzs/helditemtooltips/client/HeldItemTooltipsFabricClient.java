@@ -1,9 +1,10 @@
 package fuzs.helditemtooltips.client;
 
 import fuzs.helditemtooltips.HeldItemTooltips;
+import fuzs.helditemtooltips.client.handler.SelectedItemHandler;
 import fuzs.puzzleslib.client.core.ClientFactories;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class HeldItemTooltipsFabricClient implements ClientModInitializer {
 
@@ -14,8 +15,6 @@ public class HeldItemTooltipsFabricClient implements ClientModInitializer {
     }
 
     private static void registerHandlers() {
-        ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
-
-        });
+        ClientTickEvents.END_CLIENT_TICK.register(SelectedItemHandler.INSTANCE::onClientTick$End);
     }
 }

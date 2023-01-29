@@ -43,7 +43,7 @@ public class TooltipComponentHolder {
     }
 
     public int priority() {
-        return -this.settings.priority;
+        return this.settings.priority;
     }
 
     public void clear() {
@@ -57,6 +57,7 @@ public class TooltipComponentHolder {
                 TooltipFlag.Default tooltipFlag = this.settings.advancedTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
                 Style style = this.settings.getStyle();
                 this.component.appendTooltipLines(lines, stack, player, tooltipFlag, style);
+                lines.removeIf(component -> component.getString().isEmpty());
                 this.lines = Collections.unmodifiableList(lines);
             } else {
                 this.lines = List.of();
@@ -65,8 +66,8 @@ public class TooltipComponentHolder {
     }
 
     public int subtractLines(int maxLines) {
-        this.maxLines = Math.min(this.size(), maxLines);
-        return maxLines - this.maxLines;
+        this.maxLines = Math.min(this.size(), Math.max(maxLines, 0));
+        return maxLines - this.size();
     }
 
     public List<Component> getLines() {

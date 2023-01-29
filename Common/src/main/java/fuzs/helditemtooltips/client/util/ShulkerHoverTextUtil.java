@@ -13,33 +13,33 @@ import java.util.List;
 
 public class ShulkerHoverTextUtil {
 
-    public static void appendHoverText(List<Component> tooltip, ItemStack stack, int rows, boolean lastLine) {
+    public static void appendHoverText(List<Component> lines, ItemStack stack, int rows, boolean lastLine) {
 
         if (rows == 0) return;
         CompoundTag tag = stack.getTagElement("BlockEntityTag");
         if (tag == null) return;
 
-        appendEmptyText(tooltip, tag);
+        appendEmptyText(lines, tag);
         List<ItemStack> contents = loadAllItems(tag);
         if (contents.size() > rows && rows != -1) {
 
             for (ItemStack itemstack : contents.subList(0, rows - 1)) {
 
-                MutableComponent iformattabletextcomponent = itemstack.getDisplayName().copy();
-                tooltip.add(iformattabletextcomponent.append(" x").append(String.valueOf(itemstack.getCount())));
+                MutableComponent component = itemstack.getHoverName().copy();
+                lines.add(component.append(" x").append(String.valueOf(itemstack.getCount())));
             }
 
             if (lastLine) {
 
-                tooltip.add(Component.translatable("container.shulkerBox.more", contents.size() - rows + 1).withStyle(ChatFormatting.ITALIC));
+                lines.add(Component.translatable("container.shulkerBox.more", contents.size() - rows + 1).withStyle(ChatFormatting.ITALIC));
             }
         } else {
 
             for (ItemStack content : contents) {
 
-                MutableComponent component = content.getDisplayName().copy();
+                MutableComponent component = content.getHoverName().copy();
                 component.append(" x").append(String.valueOf(content.getCount()));
-                tooltip.add(component);
+                lines.add(component);
             }
         }
     }
