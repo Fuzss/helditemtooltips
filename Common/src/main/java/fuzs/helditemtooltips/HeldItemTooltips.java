@@ -12,6 +12,7 @@ public class HeldItemTooltips implements ModConstructor {
     public static final String MOD_NAME = "Held Item Tooltips";
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
+    @SuppressWarnings("Convert2MethodRef")
     public static final ConfigHolder CONFIG = CommonFactories.INSTANCE.clientConfig(ClientConfig.class, () -> new ClientConfig());
 
     @Override
