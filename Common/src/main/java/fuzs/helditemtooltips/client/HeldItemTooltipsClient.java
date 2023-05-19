@@ -7,6 +7,7 @@ import fuzs.helditemtooltips.client.handler.SelectedItemHandler;
 import fuzs.helditemtooltips.config.ClientConfig;
 import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
 import fuzs.puzzleslib.api.client.event.v1.ClientTickEvents;
+import fuzs.puzzleslib.api.client.event.v1.RenderGuiElementEvents;
 import fuzs.puzzleslib.api.core.v1.context.ModLifecycleContext;
 
 public class HeldItemTooltipsClient implements ClientModConstructor {
@@ -18,6 +19,7 @@ public class HeldItemTooltipsClient implements ClientModConstructor {
 
     private static void registerHandlers() {
         ClientTickEvents.END.register(SelectedItemHandler.INSTANCE::onClientTick$End);
+        RenderGuiElementEvents.before(RenderGuiElementEvents.ITEM_NAME).register(SelectedItemHandler.INSTANCE::onRenderGuiOverlay$ItemName);
     }
 
     @Override

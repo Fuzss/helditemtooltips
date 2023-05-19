@@ -6,6 +6,7 @@ import fuzs.helditemtooltips.HeldItemTooltips;
 import fuzs.helditemtooltips.client.gui.screens.inventory.tooltip.HoverTextManager;
 import fuzs.helditemtooltips.config.ClientConfig;
 import fuzs.helditemtooltips.mixin.client.accessor.GuiAccessor;
+import fuzs.puzzleslib.api.event.v1.core.EventResult;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -55,21 +56,20 @@ public class SelectedItemHandler {
         }
     }
 
-    public void onRenderGuiOverlay$ItemName(PoseStack poseStack, int width, int height) {
+    public EventResult onRenderGuiOverlay$ItemName(Minecraft minecraft, PoseStack poseStack, float tickDelta, int screenWidth, int screenHeight) {
 
-        if (this.highlightingItemStack.isEmpty()) return;
+        if (this.highlightingItemStack.isEmpty()) return EventResult.INTERRUPT;
 
-        Minecraft minecraft = Minecraft.getInstance();
         minecraft.getProfiler().push("selectedItemName");
 
         int alpha = HeldItemTooltips.CONFIG.get(ClientConfig.class).displayTime == 0 ? 255 : (int) Math.min(255.0F, (float) this.remainingHighlightTicks * 255.0F / 10.0F);
 
-        if (alpha <= 0) return;
+        if (alpha <= 0) return EventResult.INTERRUPT;
 
         final List<Component> lines = this.getTooltipLines(minecraft);
         final float currentScale = HeldItemTooltips.CONFIG.get(ClientConfig.class).displayScale / 6.0F;
-        final int posX = this.getPosX(currentScale, width);
-        int posY = this.getPosY(currentScale, height, lines.size(), minecraft);
+        final int posX = this.getPosX(currentScale, screenWidth);
+        int posY = this.getPosY(currentScale, screenHeight, lines.size(), minecraft);
 
         Font fontRenderer = minecraft.font;
         poseStack.pushPose();
@@ -91,6 +91,8 @@ public class SelectedItemHandler {
         poseStack.popPose();
 
         minecraft.getProfiler().pop();
+
+        return EventResult.INTERRUPT;
     }
 
     private int getPosX(float currentScale, int screenWidth) {
