@@ -3,13 +3,25 @@ package fuzs.helditemtooltips.client;
 import fuzs.helditemtooltips.HeldItemTooltips;
 import fuzs.helditemtooltips.client.gui.screens.inventory.tooltip.HoverTextManager;
 import fuzs.helditemtooltips.client.gui.screens.inventory.tooltip.TooltipComponents;
+import fuzs.helditemtooltips.client.handler.SelectedItemHandler;
 import fuzs.helditemtooltips.config.ClientConfig;
-import fuzs.puzzleslib.client.core.ClientModConstructor;
+import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
+import fuzs.puzzleslib.api.client.event.v1.ClientTickEvents;
+import fuzs.puzzleslib.api.core.v1.context.ModLifecycleContext;
 
 public class HeldItemTooltipsClient implements ClientModConstructor {
 
     @Override
-    public void onClientSetup() {
+    public void onConstructMod() {
+        registerHandlers();
+    }
+
+    private static void registerHandlers() {
+        ClientTickEvents.END.register(SelectedItemHandler.INSTANCE::onClientTick$End);
+    }
+
+    @Override
+    public void onClientSetup(ModLifecycleContext context) {
         ClientConfig config = HeldItemTooltips.CONFIG.get(ClientConfig.class);
         HoverTextManager.register(TooltipComponents.ITEM_NAME, config.itemName);
         HoverTextManager.register(TooltipComponents.ADDITIONAL, config.additional);

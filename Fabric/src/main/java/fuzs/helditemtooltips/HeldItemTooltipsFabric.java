@@ -1,12 +1,12 @@
 package fuzs.helditemtooltips;
 
-import fuzs.puzzleslib.core.CommonFactories;
+import fuzs.puzzleslib.api.core.v1.ModConstructor;
 import net.fabricmc.api.ModInitializer;
 
 public class HeldItemTooltipsFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        CommonFactories.INSTANCE.modConstructor(HeldItemTooltips.MOD_ID).accept(new HeldItemTooltips());
+        ModConstructor.construct(HeldItemTooltips.MOD_ID, HeldItemTooltips::new);
     }
 }

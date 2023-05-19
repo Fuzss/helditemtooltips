@@ -10,8 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import org.apache.commons.compress.utils.Lists;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;

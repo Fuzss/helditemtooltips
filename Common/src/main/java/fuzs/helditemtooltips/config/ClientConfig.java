@@ -1,11 +1,11 @@
 package fuzs.helditemtooltips.config;
 
 import com.google.common.collect.Lists;
-import fuzs.puzzleslib.config.ConfigCore;
-import fuzs.puzzleslib.config.annotation.Config;
-import fuzs.puzzleslib.config.serialization.ConfigDataSet;
+import fuzs.puzzleslib.api.config.v3.Config;
+import fuzs.puzzleslib.api.config.v3.ConfigCore;
+import fuzs.puzzleslib.api.config.v3.serialization.ConfigDataSet;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 
 import java.util.List;
@@ -61,7 +61,7 @@ public class ClientConfig implements ConfigCore {
 
     @Override
     public void afterConfigReload() {
-        this.itemBlacklist = ConfigDataSet.of(Registry.ITEM_REGISTRY, this.itemBlacklistRaw);
+        this.itemBlacklist = ConfigDataSet.from(Registries.ITEM, this.itemBlacklistRaw);
     }
 
     public enum HoverTextBackground {

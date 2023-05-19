@@ -2,7 +2,7 @@ package fuzs.helditemtooltips.client.gui.screens.inventory.tooltip;
 
 import fuzs.helditemtooltips.client.util.ShulkerHoverTextUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -111,7 +111,7 @@ public final class TooltipComponents {
         }
     };
     public static final TooltipComponent IDENTIFIER = (lines, stack, player, tooltipFlag, style) -> {
-        lines.add(Component.literal(Registry.ITEM.getKey(stack.getItem()).toString()).withStyle(ChatFormatting.DARK_GRAY).withStyle(style::applyTo));
+        lines.add(Component.literal(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString()).withStyle(ChatFormatting.DARK_GRAY).withStyle(style::applyTo));
     };
     public static final TooltipComponent NBT_COUNT = (lines, stack, player, tooltipFlag, style) -> {
         if (stack.hasTag()) {

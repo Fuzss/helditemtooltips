@@ -19,6 +19,7 @@ abstract class GuiFabricMixin extends GuiComponent {
 
     @Inject(method = "renderSelectedItemName", at = @At("HEAD"), cancellable = true)
     public void renderSelectedItemName(PoseStack poseStack, CallbackInfo callback) {
+        // TODO replace with puzzles lib event for 1.19.4
         SelectedItemHandler.INSTANCE.onRenderGuiOverlay$ItemName(poseStack, this.screenWidth, this.screenHeight);
         callback.cancel();
     }
