@@ -1,13 +1,14 @@
 package fuzs.helditemtooltips.client.gui.screens.inventory.tooltip;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import fuzs.helditemtooltips.config.TooltipComponentConfig;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -53,7 +54,9 @@ public class TooltipComponentHolder {
     public void tryRebuild(ItemStack stack, @Nullable Player player) {
         if (this.lines == null || this.component.alwaysUpdate()) {
             if (!this.settings.respectHideFlags || shouldShowInTooltip(stack, this.component)) {
-                List<Component> lines = Lists.newArrayList();
+                // initialize list with empty component as some mods expect the title to be present when performing index based operations on the list
+                // looking at you https://github.com/Noaaan/MythicMetals
+                List<Component> lines = Lists.newArrayList(CommonComponents.EMPTY);
                 TooltipFlag.Default tooltipFlag = this.settings.advancedTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
                 Style style = this.settings.getStyle();
                 this.component.appendTooltipLines(lines, stack, player, tooltipFlag, style);

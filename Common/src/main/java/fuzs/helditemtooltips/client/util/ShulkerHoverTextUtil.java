@@ -69,10 +69,10 @@ public class ShulkerHoverTextUtil {
         List<ItemStack> contents = Lists.newArrayList();
         for (ItemStack current : items) {
 
-            if (contents.stream().anyMatch(it -> ItemStack.isSame(it, current))) {
+            if (contents.stream().anyMatch(it -> ItemStack.isSameItem(it, current))) {
 
                 contents.forEach(stack -> {
-                    if (ItemStack.isSame(stack, current)) {
+                    if (ItemStack.isSameItem(stack, current)) {
 
                         stack.setCount(stack.getCount() + current.getCount());
                     }

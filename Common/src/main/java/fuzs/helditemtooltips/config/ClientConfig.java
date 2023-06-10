@@ -33,7 +33,7 @@ public class ClientConfig implements ConfigCore {
     @Config(description = "Show how many more lines there are that currently don't fit the tooltip, just like the vanilla shulker box tooltip.")
     public boolean lastLine = true;
     @Config(description = "Show black chat background behind tooltip lines for better visibility.")
-    public HoverTextBackground background = HoverTextBackground.NONE;
+    public HoverTextBackground background = HoverTextBackground.RECTANGLE;
     @Config(description = "Allow other mods to modify held item tooltip contents. Lines can be both added or changed.")
     public boolean additionalInformation = false;
     @Config(category = "components", description = "Display name of the held item.")

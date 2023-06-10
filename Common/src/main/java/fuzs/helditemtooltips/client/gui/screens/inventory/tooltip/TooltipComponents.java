@@ -45,7 +45,7 @@ public final class TooltipComponents {
             ShulkerHoverTextUtil.appendHoverText(lines, stack, -1, false);
         } else {
 
-            stack.getItem().appendHoverText(stack, player == null ? null : player.level, lines, tooltipFlag);
+            stack.getItem().appendHoverText(stack, player == null ? null : player.level(), lines, tooltipFlag);
         }
     };
     public static final TooltipComponent ENCHANTMENTS = (lines, stack, player, tooltipFlag, style) -> {
